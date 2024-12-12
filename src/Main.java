@@ -1,26 +1,25 @@
-import game.HangmanGame;
-import game.HangmanGameAutoGuesser;
-import game.HangmanGameCheatingComputer;
+import game.Executioner.CheatingExecutioner;
+import game.Executioner.Executioner;
+import game.Guesser.AutoGuesser;
+import game.Guesser.Guesser;
 import util.HangmanDictionary;
-
+import game.HangmanGame;
 
 /**
  * This class launches the Hangman game and plays once.
  * 
- * @author Michael Hewner
- * @author Mac Mason
- * @author Robert C. Duvall
- * @author Shannon Duvall
+ * @version 1.0
+ * @since 2024-12-12
  */
 public class Main {
     public static final String DICTIONARY = "data/lowerwords.txt";
     public static final int NUM_LETTERS = 6;
     public static final int NUM_MISSES = 8;
 
-
-    public static void main (String[] args) {
-        //new HangmanGameInteractiveGuesser(new HangmanDictionary(DICTIONARY), NUM_LETTERS, NUM_MISSES).play();
-        //new HangmanGameAutoGuesser(new HangmanDictionary(DICTIONARY), NUM_LETTERS, NUM_MISSES).play();
-    	new HangmanGameCheatingComputer(new HangmanDictionary(DICTIONARY), NUM_LETTERS, NUM_MISSES).play();
+    public static void main(String[] args) {
+        HangmanDictionary dictionary = new HangmanDictionary(DICTIONARY);
+        Executioner executioner = new CheatingExecutioner(dictionary, NUM_LETTERS);
+        Guesser guesser = new AutoGuesser();
+        new HangmanGame(NUM_MISSES, executioner, guesser).play();
     }
 }
